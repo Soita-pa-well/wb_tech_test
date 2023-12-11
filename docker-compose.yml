@@ -1,0 +1,31 @@
+version: '3'
+
+volumes:
+  pg:
+  static:
+
+services:
+  db:
+    image: postgres:13.10
+    env_file: .env
+    volumes:
+      - pg:/var/lib/postgresql/data
+  wb_test:
+    image: soita/wb_test
+    env_file: .env
+    volumes:
+      - static:/static
+    depends_on:
+      - db     
+  # migrations:
+  #   image: soita/wb_test
+  #   env_file: .env
+  #   command: ["python", "manage.py", "migrate"]   
+  #   depends_on:
+  #     - db
+  gateway:
+    image: soita/wb_gateway
+    volumes:
+      - static:/staticfiles/
+    ports: 
+      - 80:80    
