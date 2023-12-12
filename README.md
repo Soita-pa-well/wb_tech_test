@@ -17,5 +17,3 @@ docker-compose exec wb_test python manage.py collectstatic
 ```bash
 docker-compose exec wb_test cp -r /app/static/. /static/static/
 ```
-
-
